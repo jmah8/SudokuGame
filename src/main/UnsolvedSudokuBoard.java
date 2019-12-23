@@ -203,6 +203,25 @@ public class UnsolvedSudokuBoard extends SudokuBoard {
         return 0 == board.get(index);
     }
 
+    // EFFECT: returns true if board is complete and valid, false otherwise
+    // TODO: fix bug where since i need the numbers to psuedo insert,
+    //  it will always return false since the same number already exist
+    public boolean checkIfValidAndCompleteBoard() {
+        boolean solved = true;
+        for (int i = 0; i < 81; i++) {
+            Integer numberAtIndex = board.get(i);
+            Integer indexNumber = i;
+            if (checkValidColumn(indexNumber, numberAtIndex) && checkValidRow(indexNumber,
+                    numberAtIndex) && checkValidGrid(indexNumber, numberAtIndex) && !checkValidIndex(indexNumber)) {
+                solved = true;
+            } else {
+                solved = false;
+                break;
+            }
+        }
+        return solved;
+    }
+
     // MODIFIES : this
     // EFFECT: sets the value at index to 0
     public void makeIndexEmpty(Integer index) {

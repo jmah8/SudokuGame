@@ -23,16 +23,7 @@ public class MainGUI {
     private JButton quitButton;
 
     public MainGUI() {
-        JFrame frame = new JFrame("Sudoku");
-        frame.setVisible(true);
-        frame.setContentPane(cardPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setSize(600, 800);
-        cardPanel.add(mainMenu, "MainMenu");
-        cardPanel.add(sudokuPanel, "SudokuBoard");
-        CardLayout card = (CardLayout) (cardPanel.getLayout());
-        card.show(cardPanel, "MainMenu");
+        setUpPanels();
 
         quitButton.addActionListener(new ActionListener() {
             @Override
@@ -51,6 +42,19 @@ public class MainGUI {
                 setUpSudokuBoard();
             }
         });
+    }
+
+    private void setUpPanels() {
+        JFrame frame = new JFrame("Sudoku");
+        frame.setVisible(true);
+        frame.setContentPane(cardPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setSize(600, 800);
+        cardPanel.add(mainMenu, "MainMenu");
+        cardPanel.add(sudokuPanel, "SudokuBoard");
+        CardLayout card = (CardLayout) (cardPanel.getLayout());
+        card.show(cardPanel, "MainMenu");
     }
 
 
@@ -79,6 +83,8 @@ public class MainGUI {
 
     private void makeSudokuButtons() {
         JLabel heading = new JLabel("Try to solve this sudoku board!", SwingConstants.CENTER);
+        // TODO: need to fix the gridlayout so that i can have one thing that spans the whole 9 columns
+//        sudokuPanel.add(heading);
         for (int i = 0; i < 81; i++) {
             JButton button = new JButton(String.valueOf(solvableSudokuBoard.getSudokuBoard().getNumberAtIndex(i)));
             int finalI = i;
@@ -165,7 +171,14 @@ public class MainGUI {
         checkSolutionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                boolean solved = unsolvedSudokuBoard.checkIfValidAndCompleteBoard();
+                if (solved) {
+                    JOptionPane.showMessageDialog(null, "Looks like you solved it good work!",
+                            "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Looks like you made some mistakes." +
+                                    " Keep trying!", "Sorry!", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
