@@ -134,6 +134,7 @@ public class SudokuChecker {
             if (numberAtIndex == 0) {
                 // Do nothing
             } else {
+                // TODO: check if this is really required
                 boolean validIndex = !(sudokuBoard.checkValidIndex(index));
                 if (!validIndex) {
                     return false;
