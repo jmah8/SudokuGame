@@ -53,19 +53,9 @@ public abstract class SudokuBoard {
         return sudokuChecker.checkValidRow(index, number);
     }
 
-    // EFFECT: returns true if all rows doesn't have same number, false otherwise
-    public boolean checkValidRow() {
-        return sudokuChecker.checkValidRow();
-    }
-
     // EFFECT: returns true if column doesn't have same number, false otherwise
     public boolean checkValidColumn(Integer index, Integer number) {
         return sudokuChecker.checkValidColumn(index, number);
-    }
-
-    // EFFECT: returns true if all column doesn't have same number, false otherwise
-    public boolean checkValidColumn() {
-        return sudokuChecker.checkValidColumn();
     }
 
     // EFFECT: returns true if number is not in grid (3x3), return false
@@ -81,12 +71,16 @@ public abstract class SudokuBoard {
         return sudokuChecker.checkValidIndex(index);
     }
 
-    // EFFECT: returns true if board is complete and valid, false otherwise
-    // TODO: fix bug where since i need the numbers to psuedo insert,
-    //  it will always return false since the same number already exist
-    public boolean checkIfValidAndCompleteBoard() {
-        return sudokuChecker.checkIfValidAndCompleteBoard();
+    public boolean checkValidBoard() {
+        return sudokuChecker.checkValidBoard();
     }
+
+//    // EFFECT: returns true if board is complete and valid, false otherwise
+//    // TODO: fix bug where since i need the numbers to psuedo insert,
+//    //  it will always return false since the same number already exist
+//    public boolean checkIfValidAndCompleteBoard() {
+//        return sudokuChecker.checkIfValidAndCompleteBoard();
+//    }
 
     public Board getBoard() {
         return board;

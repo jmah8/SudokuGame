@@ -4,6 +4,8 @@ import main.Difficulty;
 import main.SolvableSudokuBoard;
 import main.SudokuSolver;
 import main.UnsolvedSudokuBoard;
+import main.SudokuChecker;
+import main.SudokuBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +15,9 @@ import java.awt.event.ActionListener;
 public class MainGUI {
     private SolvableSudokuBoard solvableSudokuBoard;
     private SudokuSolver sudokuSolver;
-    private UnsolvedSudokuBoard unsolvedSudokuBoard;
+    private SudokuBoard unsolvedSudokuBoard;
     private UnsolvedSudokuBoard solvedBoard;
+    private SudokuChecker sudokuChecker;
 
     private JPanel cardPanel;
     private JPanel mainMenu;
@@ -171,7 +174,8 @@ public class MainGUI {
         checkSolutionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean solved = unsolvedSudokuBoard.checkIfValidAndCompleteBoard();
+                sudokuChecker = new SudokuChecker(unsolvedSudokuBoard);
+                boolean solved = sudokuChecker.checkValidBoard();
                 if (solved) {
                     JOptionPane.showMessageDialog(null, "Looks like you solved it good work!",
                             "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
