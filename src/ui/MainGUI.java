@@ -25,6 +25,11 @@ public class MainGUI {
     private JButton startButton;
     private JButton quitButton;
 
+    private JPanel sudokuButtons;
+    private JButton checkValidButton;
+    private JButton showSolutionButton;
+    private JButton backButton;
+
     public MainGUI() {
         setUpPanels();
 
@@ -43,6 +48,58 @@ public class MainGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setUpSudokuBoard();
+            }
+        });
+
+        checkValidButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sudokuChecker = new SudokuChecker(unsolvedSudokuBoard);
+                boolean solved = sudokuChecker.checkValidBoard();
+                if (solved) {
+                    JOptionPane.showMessageDialog(null, "Looks like this is a valid board!",
+                            "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Looks like you made some mistakes." +
+                            " Keep trying!", "Sorry!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        showSolutionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int n = JOptionPane.showConfirmDialog(null, "Really show the solution?",
+                        "Warning", JOptionPane.YES_NO_OPTION);
+                if (n == JOptionPane.YES_OPTION) {
+                    sudokuSolver = new SudokuSolver(unsolvedSudokuBoard);
+                    boolean solvable = sudokuSolver.fillSudokuBoard();
+                    if (solvable) {
+                        refreshSudokuButtons();
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "This board isn't solvable like this. Please change some of the numbers!",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    // TODO: this requires a deep copy to pull off. But could use checkValidInsertion to not
+                    //  find whole solution, but give hint that could potentially lead to failure
+//                    solvedBoard = sudokuSolver.getSudokuBoard();
+//                    int emptyIndex = 0;
+//                    for (int i = 0; i < 81; i++) {
+//                        if (unsolvedSudokuBoard.getNumberAtIndex(i) == 0) {
+//                            emptyIndex = i;
+//                            break;
+//                        }
+//                    }
+//                    updateBoardWithHint(emptyIndex);
+                }
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showPanel(mainMenu, "MainMenu");
             }
         });
     }
@@ -78,7 +135,7 @@ public class MainGUI {
                 break;
         }
         unsolvedSudokuBoard = solvableSudokuBoard.getSudokuBoard();
-        sudokuPanel = new JPanel(new GridLayout(0, 9));
+        sudokuButtons.setLayout(new GridLayout(0, 9));
         makeSudokuButtons();
         cardPanel.add(sudokuPanel, "SudokuBoard");
         showPanel(sudokuPanel,"SudokuBoard");
@@ -98,95 +155,97 @@ public class MainGUI {
                     refreshSudokuButtons();
                 }
             });
-            sudokuPanel.add(button);
+            sudokuButtons.add(button);
         }
-        sudokuPanel.add(new Label(""));
-        makeCheckSolutionButton();
-        makeShowSolutionButton();
-        makeBackButton();
+//        sudokuPanel.add(sudokuButtons);
+//        setUpBottomButtons();
     }
 
-    private void makeBackButton() {
-//        JPanel backAndHint = new JPanel();
-//        backAndHint.setLayout(new GridLayout(1, 0));
-//        backAndHint.add(new Label(" "));
-//        JButton hintButton = new JButton("Hint?");
+    private void setUpBottomButtons() {
+        JPanel controlButtons = new JPanel();
+        controlButtons.setLayout(new GridLayout(0, 1));
+        sudokuPanel.add(new JSeparator());
+//        makeCheckSolutionButton(controlButtons);
+//        makeShowSolutionButton(controlButtons);
+//        makeBackButton(controlButtons);
+        sudokuPanel.add(controlButtons);
+    }
+
+//    private void makeBackButton(JPanel buttonPanel) {
+////        JPanel backAndHint = new JPanel();
+////        backAndHint.setLayout(new GridLayout(1, 0));
+////        backAndHint.add(new Label(" "));
+////        JButton hintButton = new JButton("Hint?");
+////        JButton backButton = new JButton("Back");
+////        backAndHint.add(hintButton);
+////        backAndHint.add(backButton);
+////        sudokuPanel.add(backAndHint);
+//
 //        JButton backButton = new JButton("Back");
-//        backAndHint.add(hintButton);
-//        backAndHint.add(backButton);
-//        sudokuPanel.add(backAndHint);
+//        buttonPanel.add(backButton);
+//
+//        backButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                showPanel(mainMenu, "MainMenu");
+//            }
+//        });
+//    }
 
-        JButton backButton = new JButton("Back");
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.0;
-        c.gridwidth = 9;
-        c.gridx = 0;
-        c.gridy = 1;
-        sudokuPanel.add(backButton);
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showPanel(mainMenu, "MainMenu");
-            }
-        });
-    }
-
-    private void makeShowSolutionButton() {
-        JButton hintButton = new JButton("Show solution?");
-        sudokuPanel.add(hintButton);
-
-        hintButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int n = JOptionPane.showConfirmDialog(null, "Really show the solution?",
-                        "Warning", JOptionPane.YES_NO_OPTION);
-                if (n == JOptionPane.YES_OPTION) {
-                    sudokuSolver = new SudokuSolver(unsolvedSudokuBoard);
-                    boolean solvable = sudokuSolver.fillSudokuBoard();
-                    if (solvable) {
-                        refreshSudokuButtons();
-                    } else {
-                        JOptionPane.showMessageDialog(null,
-                                "This board isn't solvable like this. Please change some of the numbers!",
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    // TODO: this requires a deep copy to pull off. But could use checkValidInsertion to not
-                    //  find whole solution, but give hint that could potentially lead to failure
-//                    solvedBoard = sudokuSolver.getSudokuBoard();
-//                    int emptyIndex = 0;
-//                    for (int i = 0; i < 81; i++) {
-//                        if (unsolvedSudokuBoard.getNumberAtIndex(i) == 0) {
-//                            emptyIndex = i;
-//                            break;
-//                        }
+//    private void makeShowSolutionButton(JPanel buttonPanel) {
+//        JButton hintButton = new JButton("Show solution?");
+//        buttonPanel.add(hintButton);
+//
+//        hintButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int n = JOptionPane.showConfirmDialog(null, "Really show the solution?",
+//                        "Warning", JOptionPane.YES_NO_OPTION);
+//                if (n == JOptionPane.YES_OPTION) {
+//                    sudokuSolver = new SudokuSolver(unsolvedSudokuBoard);
+//                    boolean solvable = sudokuSolver.fillSudokuBoard();
+//                    if (solvable) {
+//                        refreshSudokuButtons();
+//                    } else {
+//                        JOptionPane.showMessageDialog(null,
+//                                "This board isn't solvable like this. Please change some of the numbers!",
+//                                "Error", JOptionPane.ERROR_MESSAGE);
 //                    }
-//                    updateBoardWithHint(emptyIndex);
-                }
-            }
-        });
-    }
+//                    // TODO: this requires a deep copy to pull off. But could use checkValidInsertion to not
+//                    //  find whole solution, but give hint that could potentially lead to failure
+////                    solvedBoard = sudokuSolver.getSudokuBoard();
+////                    int emptyIndex = 0;
+////                    for (int i = 0; i < 81; i++) {
+////                        if (unsolvedSudokuBoard.getNumberAtIndex(i) == 0) {
+////                            emptyIndex = i;
+////                            break;
+////                        }
+////                    }
+////                    updateBoardWithHint(emptyIndex);
+//                }
+//            }
+//        });
+//    }
 
-    private void makeCheckSolutionButton() {
-        JButton checkSolutionButton = new JButton("Check your solution?");
-        sudokuPanel.add(checkSolutionButton);
-
-        checkSolutionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sudokuChecker = new SudokuChecker(unsolvedSudokuBoard);
-                boolean solved = sudokuChecker.checkValidBoard();
-                if (solved) {
-                    JOptionPane.showMessageDialog(null, "Looks like you solved it good work!",
-                            "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Looks like you made some mistakes." +
-                                    " Keep trying!", "Sorry!", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-    }
+//    private void makeCheckSolutionButton(JPanel buttonPanel) {
+//        JButton checkSolutionButton = new JButton("Check your solution?");
+//        buttonPanel.add(checkSolutionButton);
+//
+//        checkSolutionButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                sudokuChecker = new SudokuChecker(unsolvedSudokuBoard);
+//                boolean solved = sudokuChecker.checkValidBoard();
+//                if (solved) {
+//                    JOptionPane.showMessageDialog(null, "Looks like you solved it good work!",
+//                            "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Looks like you made some mistakes." +
+//                                    " Keep trying!", "Sorry!", JOptionPane.ERROR_MESSAGE);
+//                }
+//            }
+//        });
+//    }
 
     private void updateBoardWithHint(Integer index) {
         int solvedNumber = solvedBoard.getNumberAtIndex(index);
@@ -195,7 +254,7 @@ public class MainGUI {
     }
 
     private void refreshSudokuButtons() {
-        sudokuPanel.removeAll();
+        sudokuButtons.removeAll();
         makeSudokuButtons();
         sudokuPanel.repaint();
         sudokuPanel.revalidate();
