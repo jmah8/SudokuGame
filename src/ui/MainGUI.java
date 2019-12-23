@@ -135,8 +135,14 @@ public class MainGUI {
                 break;
         }
         unsolvedSudokuBoard = solvableSudokuBoard.getSudokuBoard();
-        sudokuButtons.setLayout(new GridLayout(0, 9));
-        makeSudokuButtons();
+
+        //sudokuButtons.setLayout(new GridLayout(0, 9));
+
+        // This is for Jseparators added
+        sudokuButtons.setLayout(new GridLayout(0, 11));
+
+
+        refreshSudokuButtons();
         cardPanel.add(sudokuPanel, "SudokuBoard");
         showPanel(sudokuPanel,"SudokuBoard");
     }
@@ -156,6 +162,16 @@ public class MainGUI {
                 }
             });
             sudokuButtons.add(button);
+            if (i % 3 == 2 && !(i % 9 == 8)) {
+                JSeparator verticalLine = new JSeparator(JSeparator.VERTICAL);
+                sudokuButtons.add(verticalLine);
+            }
+            if (i == 26 || i == 53) {
+                for (int x = 0; x < 11; x++) {
+                    JSeparator horizontalLine = new JSeparator(JSeparator.HORIZONTAL);
+                    sudokuButtons.add(horizontalLine);
+                }
+            }
         }
 //        sudokuPanel.add(sudokuButtons);
 //        setUpBottomButtons();
