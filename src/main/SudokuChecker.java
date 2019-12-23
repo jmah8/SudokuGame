@@ -60,16 +60,16 @@ public class SudokuChecker {
             int index = x;
             int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
             if (numberAtIndex == 0) {
-                // DO nothing
+                // Do nothing
             } else {
-                sudokuBoard.addNumber(x, 0);
+                sudokuBoard.addNumber(index, 0);
                 boolean validRow = checkValidRow(index, numberAtIndex);
                 if (!validRow) {
-                    sudokuBoard.addNumber(x, numberAtIndex);
+                    sudokuBoard.addNumber(index, numberAtIndex);
                     return false;
                 }
             }
-            sudokuBoard.addNumber(x, numberAtIndex);
+            sudokuBoard.addNumber(index, numberAtIndex);
         }
         return true;
     }
@@ -88,23 +88,25 @@ public class SudokuChecker {
 
     // EFFECT: returns true if all column doesn't have same number, false otherwise
     public boolean checkValidColumn() {
-        int columnNumber = 0;
         for (int x = 0; x < 81; x++) {
-            columnNumber = x % 9;
-            for (int y = 0; y < 9; y++) {
-                if (x == columnNumber + y) {
-
-                } else if (sudokuBoard.getBoard().getNumberAtIndex(x)
-                        == sudokuBoard.getBoard().getNumberAtIndex(columnNumber)) {
+            int index = x;
+            int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
+            if (numberAtIndex == 0) {
+                // Do nothing
+            } else {
+                sudokuBoard.addNumber(index, 0);
+                boolean validColumn = checkValidColumn(index, numberAtIndex);
+                if (!validColumn) {
+                    sudokuBoard.addNumber(index, numberAtIndex);
                     return false;
                 }
-                columnNumber = columnNumber + 9;
             }
+            sudokuBoard.addNumber(index, numberAtIndex);
         }
         return true;
     }
 
-    // EFFECT: returns true if number is not in grid (3x3), return false
+    // EFFECT: returns true if number is not in grid (3x3), else return false
     public boolean checkValidGrid(Integer index, Integer number) {
         // Finds which part of the grid is it on (top = 0, middle = 1, bottom = 2)
         int columnNumber = (index / 9) % 3;
@@ -120,6 +122,26 @@ public class SudokuChecker {
                 indexNumberTopLeftGrid++;
             }
             indexNumberTopLeftGrid += 6;
+        }
+        return true;
+    }
+
+    // EFFECT: returns true if all numbers in grid (3x3) are different, else return false
+    public boolean checkValidGrid() {
+        for (int x = 0; x < 81; x++) {
+            int index = x;
+            int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
+            if (numberAtIndex == 0) {
+                // Do nothing
+            } else {
+                sudokuBoard.addNumber(index, 0);
+                boolean validGrid = checkValidGrid(index, numberAtIndex);
+                if (!validGrid) {
+                    sudokuBoard.addNumber(index, numberAtIndex);
+                    return false;
+                }
+            }
+            sudokuBoard.addNumber(index, numberAtIndex);
         }
         return true;
     }
