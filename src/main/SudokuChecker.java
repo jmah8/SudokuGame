@@ -134,7 +134,8 @@ public class SudokuChecker {
             if (numberAtIndex == 0) {
                 // Do nothing
             } else {
-                // TODO: check if this is really required
+                // TODO: check if this is really required. Could make it throw exception if not completely
+                //  full, or just make so it checks the validity of the currently unfinished/finished board
 //                boolean validIndex = !(sudokuBoard.checkValidIndex(index));
 //                if (!validIndex) {
 //                    return false;

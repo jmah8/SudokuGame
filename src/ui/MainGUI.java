@@ -152,7 +152,8 @@ public class MainGUI {
                                 "This board isn't solvable like this. Please change some of the numbers!",
                                 "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                    // TODO: this requires a deep copy to pull off
+                    // TODO: this requires a deep copy to pull off. But could use checkValidInsertion to not
+                    //  find whole solution, but give hint that could potentially lead to failure
 //                    solvedBoard = sudokuSolver.getSudokuBoard();
 //                    int emptyIndex = 0;
 //                    for (int i = 0; i < 81; i++) {
