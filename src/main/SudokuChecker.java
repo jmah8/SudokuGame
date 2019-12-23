@@ -29,51 +29,6 @@ public class SudokuChecker {
         return true;
     }
 
-    // TODO: make test to check if this is right
-//    // EFFECT: returns true if all rows doesn't have same number, false otherwise.
-//    public boolean checkValidRow() {
-//        int rowNumber = 0;
-//        // Checking all 81 numbers
-//        for (int x = 0; x < 81; x++) {
-//            // Makes it to the left of row
-//            rowNumber = (x / 9) * 9;
-//            // Checks all 9 numbers in a row
-//            for (int y = 0; y < 9; y++) {
-//                if (sudokuBoard.getNumberAtIndex(x) == 0) {
-//
-//                } else if (x == rowNumber + y) {
-//
-//                } else if (sudokuBoard.getNumberAtIndex(x) ==
-//                        sudokuBoard.getNumberAtIndex(rowNumber)) {
-//                    return false;
-//                }
-//                rowNumber++;
-//            }
-//        }
-//        return true;
-//    }
-
-    // TODO: make test to check if this is right
-    // EFFECT: returns true if all rows doesn't have same number, false otherwise.
-    public boolean checkValidRow() {
-        for (int x = 0; x < 81; x++) {
-            int index = x;
-            int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
-            if (numberAtIndex == 0) {
-                // Do nothing
-            } else {
-                sudokuBoard.addNumber(index, 0);
-                boolean validRow = checkValidRow(index, numberAtIndex);
-                if (!validRow) {
-                    sudokuBoard.addNumber(index, numberAtIndex);
-                    return false;
-                }
-            }
-            sudokuBoard.addNumber(index, numberAtIndex);
-        }
-        return true;
-    }
-
     // EFFECT: returns true if column doesn't have same number, false otherwise
     public boolean checkValidColumn(Integer index, Integer number) {
         int columnNumber = index % 9;
@@ -82,26 +37,6 @@ public class SudokuChecker {
                 return false;
             }
             columnNumber = columnNumber + 9;
-        }
-        return true;
-    }
-
-    // EFFECT: returns true if all column doesn't have same number, false otherwise
-    public boolean checkValidColumn() {
-        for (int x = 0; x < 81; x++) {
-            int index = x;
-            int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
-            if (numberAtIndex == 0) {
-                // Do nothing
-            } else {
-                sudokuBoard.addNumber(index, 0);
-                boolean validColumn = checkValidColumn(index, numberAtIndex);
-                if (!validColumn) {
-                    sudokuBoard.addNumber(index, numberAtIndex);
-                    return false;
-                }
-            }
-            sudokuBoard.addNumber(index, numberAtIndex);
         }
         return true;
     }
@@ -126,6 +61,51 @@ public class SudokuChecker {
         return true;
     }
 
+    // EFFECT: returns true if index is 0 (signifies empty)
+    public boolean checkValidIndex(Integer index) {
+        return 0 == sudokuBoard.getBoard().getNumberAtIndex(index);
+    }
+
+    // EFFECT: returns true if all rows doesn't have same number, false otherwise.
+    public boolean checkValidRow() {
+        for (int x = 0; x < 81; x++) {
+            int index = x;
+            int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
+            if (numberAtIndex == 0) {
+                // Do nothing
+            } else {
+                sudokuBoard.addNumber(index, 0);
+                boolean validRow = checkValidRow(index, numberAtIndex);
+                if (!validRow) {
+                    sudokuBoard.addNumber(index, numberAtIndex);
+                    return false;
+                }
+            }
+            sudokuBoard.addNumber(index, numberAtIndex);
+        }
+        return true;
+    }
+
+    // EFFECT: returns true if all column doesn't have same number, false otherwise
+    public boolean checkValidColumn() {
+        for (int x = 0; x < 81; x++) {
+            int index = x;
+            int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
+            if (numberAtIndex == 0) {
+                // Do nothing
+            } else {
+                sudokuBoard.addNumber(index, 0);
+                boolean validColumn = checkValidColumn(index, numberAtIndex);
+                if (!validColumn) {
+                    sudokuBoard.addNumber(index, numberAtIndex);
+                    return false;
+                }
+            }
+            sudokuBoard.addNumber(index, numberAtIndex);
+        }
+        return true;
+    }
+
     // EFFECT: returns true if all numbers in grid (3x3) are different, else return false
     public boolean checkValidGrid() {
         for (int x = 0; x < 81; x++) {
@@ -146,9 +126,29 @@ public class SudokuChecker {
         return true;
     }
 
-    // EFFECT: returns true if index is 0 (signifies empty)
-    public boolean checkValidIndex(Integer index) {
-        return 0 == sudokuBoard.getBoard().getNumberAtIndex(index);
+    public boolean checkValidBoard() {
+        for (int i = 0; i < 81; i++) {
+            int index = i;
+            int numberAtIndex = sudokuBoard.getNumberAtIndex(i);
+            if (numberAtIndex == 0) {
+                // Do nothing
+            } else {
+                boolean validIndex = !(sudokuBoard.checkValidIndex(index));
+                if (!validIndex) {
+                    return false;
+                }
+                sudokuBoard.addNumber(index, 0);
+                boolean validRow = checkValidRow(index, numberAtIndex);
+                boolean validColumn = checkValidColumn(index, numberAtIndex);
+                boolean validGrid = checkValidGrid(index, numberAtIndex);
+                if (!validRow || !validColumn || !validGrid) {
+                    sudokuBoard.addNumber(index, numberAtIndex);
+                    return false;
+                }
+            }
+            sudokuBoard.addNumber(index, numberAtIndex);
+        }
+        return true;
     }
 
     // EFFECT: returns true if board is complete and valid, false otherwise
