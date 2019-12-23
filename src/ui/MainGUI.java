@@ -146,7 +146,7 @@ public class MainGUI {
                         refreshSudokuButtons();
                     } else {
                         JOptionPane.showMessageDialog(null,
-                                "This board is solvable like this. Please change some of the numbers!",
+                                "This board isn't solvable like this. Please change some of the numbers!",
                                 "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     // TODO: this requires a deep copy to pull off

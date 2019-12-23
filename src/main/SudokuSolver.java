@@ -11,7 +11,7 @@ public class SudokuSolver {
         return sb;
     }
 
-    public void changeSudokuBoard(UnsolvedSudokuBoard sudokuBoard) {
+    public void changeSudokuBoard(SudokuBoard sudokuBoard) {
         sb = sudokuBoard;
     }
 

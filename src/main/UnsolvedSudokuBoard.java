@@ -5,25 +5,12 @@ import java.util.List;
 
 public class UnsolvedSudokuBoard extends SudokuBoard {
 
-    private final SudokuChecker sudokuChecker = new SudokuChecker(this);
-//    private Random random = new Random();
-//    private Integer difficultyLevelValue = 0;
-//    private Difficulty difficulty;
-
-    public Integer NUMBERS_TO_ADD_EASY_DIFFICULTY = random.nextInt(6) + 15;
-    public Integer NUMBERS_TO_ADD_MEDIUM_DIFFICULTY = random.nextInt(6) + 25;
-    public Integer NUMBERS_TO_ADD_HARD_DIFFICULTY = random.nextInt(6) + 35;
+//    public Integer NUMBERS_TO_ADD_EASY_DIFFICULTY = random.nextInt(6) + 15;
+//    public Integer NUMBERS_TO_ADD_MEDIUM_DIFFICULTY = random.nextInt(6) + 25;
+//    public Integer NUMBERS_TO_ADD_HARD_DIFFICULTY = random.nextInt(6) + 35;
 
     public UnsolvedSudokuBoard(Difficulty difficulty) {
-        board = new Board();
-        selectDifficulty(difficulty);
-    }
-
-    // MODIFIES: this
-    // EFFECT: selects a difficultyLevel (numbers to place on board) based on difficulty
-    public void setUpBoard(Difficulty difficulty) {
-        selectDifficulty(difficulty);
-        fillBoardRandomly();
+        super(difficulty);
     }
 
     // EFFECT: returns integer based on difficulty
@@ -44,31 +31,6 @@ public class UnsolvedSudokuBoard extends SudokuBoard {
         }
         return difficultyLevelValue;
     }
-
-//    public Board getBoard() {
-//        return board;
-//    }
-
-//    // MODIFIES: this
-//    // EFFECT: puts number into position index if checkValidInsertion is true, else do nothing
-//    // Don't let user use this
-//    public void setNumber(Integer index, Integer number) {
-//        //if (checkValidInsertion(index, number)) {
-//            board.setNumber(index, number);
-//        //}
-//    }
-
-//    // MODIFIES : this
-//    // EFFECT: increments number in index by one. if number > 9, loop back to 0
-//    // This is the one user will use
-//    public void incrementNumber(Integer index) {
-//        int number = board.getNumberAtIndex(index);
-//        number++;
-//        if (number > 9) {
-//            number = 0;
-//        }
-//        board.setNumber(index, number);
-//    }
 
 
     // TODO: make this correct or dont use this implementation and use fillBoardRandomly
@@ -117,40 +79,25 @@ public class UnsolvedSudokuBoard extends SudokuBoard {
 //        }
 //    }
 
-    // MODIFIES: this
-    // EFFECT: randomly fills board with random amount of numbers
-    public void fillBoard(Integer numbersToPlace) {
-        this.difficultyLevelValue = numbersToPlace;
-        fillBoardRandomly();
-    }
-
-    // MODIFIES: this
-    // EFFECT: randomly fills board with random amount of numbers
-    public void fillBoardRandomly() {
-        int numbersToPlace = difficultyLevelValue;
-        for (int i = 0; i < numbersToPlace;) {
-            int indexToPlace = random.nextInt(81);
-            int numberToPlace = random.nextInt(9) + 1;
-            boolean validInsertion = sudokuChecker.checkValidInsertion(indexToPlace, numberToPlace);
-            if (validInsertion) {
-                board.setNumber(indexToPlace, numberToPlace);
-                i++;
-            }
-        }
-    }
-
-//    // MODIFIES : this
-//    // EFFECT: sets the value at index to 0
-//    public void makeIndexEmpty(Integer index) {
-//        board.makeIndexEmpty(index);
+//    // MODIFIES: this
+//    // EFFECT: randomly fills board with random amount of numbers
+//    public void fillBoard(Integer numbersToPlace) {
+//        this.difficultyLevelValue = numbersToPlace;
+//        fillBoardRandomly();
 //    }
 //
-//    public Integer getNumberAtIndex(Integer index) {
-//        return board.getNumberAtIndex(index);
-//    }
-
-//    // EFFECT: prints board
-//    public void printBoard() {
-//        board.printBoard();
+//    // MODIFIES: this
+//    // EFFECT: randomly fills board with random amount of numbers
+//    public void fillBoardRandomly() {
+//        int numbersToPlace = difficultyLevelValue;
+//        for (int i = 0; i < numbersToPlace;) {
+//            int indexToPlace = random.nextInt(81);
+//            int numberToPlace = random.nextInt(9) + 1;
+//            boolean validInsertion = sudokuChecker.checkValidInsertion(indexToPlace, numberToPlace);
+//            if (validInsertion) {
+//                board.setNumber(indexToPlace, numberToPlace);
+//                i++;
+//            }
+//        }
 //    }
 }

@@ -1,20 +1,21 @@
 package main;
 
+import java.util.Random;
+
 public class SolvableSudokuBoard extends SudokuBoard {
 
     private UnsolvedSudokuBoard sudokuBoard;
     private SudokuSolver sudokuSolver;
 //    private Random random = new Random();
-//    private Integer difficultyLevelValue = 0;
-//    private Difficulty difficulty;
 
-    public Integer NUMBERS_TO_REMOVE_EASY_DIFFICULTY = random.nextInt(5) + 34;
-    public Integer NUMBERS_TO_REMOVE_MEDIUM_DIFFICULTY = random.nextInt(5) + 52;
-    public Integer NUMBERS_TO_REMOVE_HARD_DIFFICULTY = random.nextInt(5) + 70;
+//    public Integer NUMBERS_TO_REMOVE_EASY_DIFFICULTY = random.nextInt(5) + 34;
+//    public Integer NUMBERS_TO_REMOVE_MEDIUM_DIFFICULTY = random.nextInt(5) + 52;
+//    public Integer NUMBERS_TO_REMOVE_HARD_DIFFICULTY = random.nextInt(5) + 70;
 
     // TODO: remove unneccessary methods
     public SolvableSudokuBoard(Difficulty difficulty) {
-        selectDifficulty(difficulty);
+        super(difficulty);
+//        selectDifficulty(difficulty);
         setUpSudokuBoard();
 
         sudokuSolver.printBoard();
