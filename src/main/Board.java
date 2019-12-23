@@ -8,12 +8,16 @@ public class Board {
     private List<Integer> board;
 
     public Board() {
-            board = new LinkedList<>();
-            fillWithZeros();
+        board = new LinkedList<>();
+        fillWithZeros();
     }
 
     public List<Integer> getBoard() {
         return board;
+    }
+
+    public Integer sizeOfBoard() {
+        return board.size();
     }
 
     // EFFECT: Fill board with 81 0s
@@ -46,6 +50,10 @@ public class Board {
 
     public Integer getNumberAtIndex(Integer index) {
         return board.get(index);
+    }
+
+    public boolean containsNumber(Integer number) {
+        return board.contains(number);
     }
 
     // MODIFIES : this

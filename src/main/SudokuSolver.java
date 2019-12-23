@@ -1,13 +1,13 @@
 package main;
 
 public class SudokuSolver {
-    UnsolvedSudokuBoard sb;
+    SudokuBoard sb;
 
-    public SudokuSolver(UnsolvedSudokuBoard sudokuBoard) {
+    public SudokuSolver(SudokuBoard sudokuBoard) {
         sb = sudokuBoard;
     }
 
-    public UnsolvedSudokuBoard getSudokuBoard() {
+    public SudokuBoard getSudokuBoard() {
         return sb;
     }
 
@@ -18,8 +18,8 @@ public class SudokuSolver {
     // EFFECT: returns true if board is completely filled, false otherwise
     public boolean isComplete() {
         boolean complete = true;
-        for (int i = 0; i < sb.getBoard().size(); i++) {
-            if (sb.getBoard().get(i) == 0) {
+        for (int i = 0; i < sb.getBoard().sizeOfBoard(); i++) {
+            if (sb.getBoard().getNumberAtIndex(i) == 0) {
                 complete = false;
             }
         }
@@ -29,8 +29,8 @@ public class SudokuSolver {
     // EFFECT: returns the next empty index
     public int findNextEmptyIndex() {
         int emptyIndex = 0;
-        for (int i = 0; i < sb.getBoard().size(); i++) {
-            int number = sb.getBoard().get(i);
+        for (int i = 0; i < sb.getBoard().sizeOfBoard(); i++) {
+            int number = sb.getBoard().getNumberAtIndex(i);
             if (number == 0) {
                 emptyIndex = i;
                 break;

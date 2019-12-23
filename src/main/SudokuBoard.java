@@ -4,10 +4,17 @@ import java.util.Random;
 
 public abstract class SudokuBoard {
 
-    private final SudokuChecker sudokuChecker = new SudokuChecker(this);
+    protected Board board;
     protected Random random = new Random();
     protected Integer difficultyLevelValue = 0;
     protected Difficulty difficulty;
+
+    private final SudokuChecker sudokuChecker = new SudokuChecker(this);
+
+//    public SudokuBoard(Difficulty difficulty) {
+//        board = new Board();
+//        selectDifficulty(difficulty);
+//    }
 
     public void selectDifficulty(Difficulty difficulty) {
         switch (difficulty) {
@@ -70,6 +77,41 @@ public abstract class SudokuBoard {
     //  it will always return false since the same number already exist
     public boolean checkIfValidAndCompleteBoard() {
         return sudokuChecker.checkIfValidAndCompleteBoard();
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    // MODIFIES: this
+    // EFFECT: puts number into position index if checkValidInsertion is true, else do nothing
+    // Don't let user use this
+    public void setNumber(Integer index, Integer number) {
+        //if (checkValidInsertion(index, number)) {
+        board.setNumber(index, number);
+        //}
+    }
+
+    // MODIFIES : this
+    // EFFECT: increments number in index by one. if number > 9, loop back to 0
+    // This is the one user will use
+    public void incrementNumber(Integer index) {
+        board.incrementNumber(index);
+    }
+
+    // EFFECT: prints board
+    public void printBoard() {
+        board.printBoard();
+    }
+
+    // MODIFIES : this
+    // EFFECT: sets the value at index to 0
+    public void makeIndexEmpty(Integer index) {
+        board.makeIndexEmpty(index);
+    }
+
+    public Integer getNumberAtIndex(Integer index) {
+        return board.getNumberAtIndex(index);
     }
 
 }

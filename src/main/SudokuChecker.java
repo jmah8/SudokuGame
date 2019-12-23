@@ -1,10 +1,11 @@
 package main;
 
 public class SudokuChecker {
-    private final SudokuBoard unsolvedSudokuBoard;
 
-    public SudokuChecker(UnsolvedSudokuBoard unsolvedSudokuBoard) {
-        this.unsolvedSudokuBoard = unsolvedSudokuBoard;
+    private  SudokuBoard sudokuBoard;
+
+    public SudokuChecker(SudokuBoard sudokuBoard) {
+        this.sudokuBoard = sudokuBoard;
     }
 
     // EFFECT: returns true if index is empty, and if column and row don't have same number,
@@ -18,7 +19,7 @@ public class SudokuChecker {
     public boolean checkValidRow(Integer index, Integer number) {
         int rowNumber = (index / 9) * 9;
         for (int i = 0; i < 9; i++) {
-            if (number == unsolvedSudokuBoard.getBoard().get(rowNumber)) {
+            if (number == sudokuBoard.getBoard().getNumberAtIndex(rowNumber)) {
                 return false;
             }
             rowNumber++;
@@ -34,7 +35,8 @@ public class SudokuChecker {
             for (int y = 0; y < 9; y++) {
                 if (x == rowNumber + y) {
 
-                } else if (unsolvedSudokuBoard.getBoard().get(x) == unsolvedSudokuBoard.getBoard().get(rowNumber)) {
+                } else if (sudokuBoard.getBoard().getNumberAtIndex(x) ==
+                        sudokuBoard.getBoard().getNumberAtIndex(rowNumber)) {
                     return false;
                 }
                 rowNumber++;
@@ -47,7 +49,7 @@ public class SudokuChecker {
     public boolean checkValidColumn(Integer index, Integer number) {
         int columnNumber = index % 9;
         for (int i = 0; i < 9; i++) {
-            if (number == unsolvedSudokuBoard.getBoard().get(columnNumber)) {
+            if (number == sudokuBoard.getBoard().getNumberAtIndex(columnNumber)) {
                 return false;
             }
             columnNumber = columnNumber + 9;
@@ -63,7 +65,8 @@ public class SudokuChecker {
             for (int y = 0; y < 9; y++) {
                 if (x == columnNumber + y) {
 
-                } else if (unsolvedSudokuBoard.getBoard().get(x) == unsolvedSudokuBoard.getBoard().get(columnNumber)) {
+                } else if (sudokuBoard.getBoard().getNumberAtIndex(x)
+                        == sudokuBoard.getBoard().getNumberAtIndex(columnNumber)) {
                     return false;
                 }
                 columnNumber = columnNumber + 9;
@@ -82,7 +85,7 @@ public class SudokuChecker {
         int indexNumberTopLeftGrid = (indexNumberTopPartOfGrid / 3) * 3;
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                if (number == unsolvedSudokuBoard.getBoard().get(indexNumberTopLeftGrid)) {
+                if (number == sudokuBoard.getBoard().getNumberAtIndex(indexNumberTopLeftGrid)) {
                     return false;
                 }
                 indexNumberTopLeftGrid++;
@@ -94,7 +97,7 @@ public class SudokuChecker {
 
     // EFFECT: returns true if index is 0 (signifies empty)
     public boolean checkValidIndex(Integer index) {
-        return 0 == unsolvedSudokuBoard.getBoard().get(index);
+        return 0 == sudokuBoard.getBoard().getNumberAtIndex(index);
     }
 
     // EFFECT: returns true if board is complete and valid, false otherwise
@@ -103,7 +106,7 @@ public class SudokuChecker {
     public boolean checkIfValidAndCompleteBoard() {
         boolean solved = true;
         for (int i = 0; i < 81; i++) {
-            Integer numberAtIndex = unsolvedSudokuBoard.getBoard().get(i);
+            Integer numberAtIndex = sudokuBoard.getBoard().getNumberAtIndex(i);
             Integer indexNumber = i;
             if (checkValidColumn(indexNumber, numberAtIndex) && checkValidRow(indexNumber,
                     numberAtIndex) && checkValidGrid(indexNumber, numberAtIndex) && !checkValidIndex(indexNumber)) {

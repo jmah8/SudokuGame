@@ -17,26 +17,26 @@ public class UnsolvedSudokuBoardTest {
 
     @Test
     public void sudokuBoardTest() {
-        assertEquals(81, sb.getBoard().size());
-        assertTrue(sb.getBoard().contains(0));
-        assertFalse(sb.getBoard().contains(1));
-        assertFalse(sb.getBoard().contains(2));
-        assertFalse(sb.getBoard().contains(3));
-        assertFalse(sb.getBoard().contains(4));
-        assertFalse(sb.getBoard().contains(5));
-        assertFalse(sb.getBoard().contains(6));
-        assertFalse(sb.getBoard().contains(7));
-        assertFalse(sb.getBoard().contains(8));
-        assertFalse(sb.getBoard().contains(9));
+        assertEquals(81, sb.getBoard().sizeOfBoard());
+        assertTrue(sb.getBoard().containsNumber(0));
+        assertFalse(sb.getBoard().containsNumber(1));
+        assertFalse(sb.getBoard().containsNumber(2));
+        assertFalse(sb.getBoard().containsNumber(3));
+        assertFalse(sb.getBoard().containsNumber(4));
+        assertFalse(sb.getBoard().containsNumber(5));
+        assertFalse(sb.getBoard().containsNumber(6));
+        assertFalse(sb.getBoard().containsNumber(7));
+        assertFalse(sb.getBoard().containsNumber(8));
+        assertFalse(sb.getBoard().containsNumber(9));
     }
 
     @Test
     public void addNumberTest() {
         sb.setNumber(60, 8);
         sb.setNumber(20, 7);
-        assertEquals(8, sb.getBoard().get(60));
-        assertEquals(7, sb.getBoard().get(20));
-        assertEquals(81, sb.getBoard().size());
+        assertEquals(8, sb.getBoard().getNumberAtIndex(60));
+        assertEquals(7, sb.getBoard().getNumberAtIndex(20));
+        assertEquals(81, sb.getBoard().sizeOfBoard());
     }
 
     @Test
@@ -189,8 +189,8 @@ public class UnsolvedSudokuBoardTest {
     public void checkFillBoardCorrectAmount() {
         sb.fillBoard(20);
         int amountOfNumbers = 0;
-        for (int i = 0; i < sb.getBoard().size(); i++) {
-            if (sb.getBoard().get(i) != 0) {
+        for (int i = 0; i < sb.getBoard().sizeOfBoard(); i++) {
+            if (sb.getBoard().getNumberAtIndex(i) != 0) {
                 amountOfNumbers++;
             }
         }
@@ -202,7 +202,7 @@ public class UnsolvedSudokuBoardTest {
         sb.setNumber(60, 2);
         assertEquals(2, sb.getNumberAtIndex(60));
         assertEquals(0, sb.getNumberAtIndex(0));
-        assertEquals(sb.getBoard().get(60), sb.getNumberAtIndex(60));
+        assertEquals(sb.getBoard().getNumberAtIndex(60), sb.getNumberAtIndex(60));
     }
 
     @Test
