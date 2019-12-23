@@ -50,7 +50,7 @@ public class SolvableSudokuBoardTest {
     @Test
     public void generateNewSolvableBoardTest() {
         ssb.generateNewSolvableBoard();
-        assertTrue(ssb.getSudokuSolver().isComplete());
+        assertTrue(ssb.getSudokuSolver().isFilled());
     }
 
     @Test

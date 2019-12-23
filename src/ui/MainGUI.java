@@ -185,7 +185,7 @@ public class MainGUI {
 
     private void updateBoardWithHint(Integer index) {
         int solvedNumber = solvedBoard.getNumberAtIndex(index);
-        unsolvedSudokuBoard.setNumber(index, solvedNumber);
+        unsolvedSudokuBoard.addNumber(index, solvedNumber);
         refreshSudokuButtons();
     }
 

@@ -30,7 +30,7 @@ public class Board {
     // MODIFIES: this
     // EFFECT: puts number into position index if checkValidInsertion is true, else do nothing
     // Don't let user use this
-    public void setNumber(Integer index, Integer number) {
+    public void addNumber(Integer index, Integer number) {
         //if (checkValidInsertion(index, number)) {
         board.set(index, number);
         //}

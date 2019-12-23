@@ -1,8 +1,10 @@
 package main;
 
+import exception.NotFilledBoardException;
+
 public class SudokuChecker {
 
-    private  SudokuBoard sudokuBoard;
+    private SudokuBoard sudokuBoard;
 
     public SudokuChecker(SudokuBoard sudokuBoard) {
         this.sudokuBoard = sudokuBoard;
@@ -27,20 +29,47 @@ public class SudokuChecker {
         return true;
     }
 
-    // EFFECT: returns true if all rows doesn't have same number, false otherwise
-    public boolean checkValidRow() {
-        int rowNumber = 0;
-        for (int x = 0; x < 81; x++) {
-            rowNumber = (x / 9) * 9;
-            for (int y = 0; y < 9; y++) {
-                if (x == rowNumber + y) {
+    // TODO: make test to check if this is right
+//    // EFFECT: returns true if all rows doesn't have same number, false otherwise.
+//    public boolean checkValidRow() {
+//        int rowNumber = 0;
+//        // Checking all 81 numbers
+//        for (int x = 0; x < 81; x++) {
+//            // Makes it to the left of row
+//            rowNumber = (x / 9) * 9;
+//            // Checks all 9 numbers in a row
+//            for (int y = 0; y < 9; y++) {
+//                if (sudokuBoard.getNumberAtIndex(x) == 0) {
+//
+//                } else if (x == rowNumber + y) {
+//
+//                } else if (sudokuBoard.getNumberAtIndex(x) ==
+//                        sudokuBoard.getNumberAtIndex(rowNumber)) {
+//                    return false;
+//                }
+//                rowNumber++;
+//            }
+//        }
+//        return true;
+//    }
 
-                } else if (sudokuBoard.getBoard().getNumberAtIndex(x) ==
-                        sudokuBoard.getBoard().getNumberAtIndex(rowNumber)) {
+    // TODO: make test to check if this is right
+    // EFFECT: returns true if all rows doesn't have same number, false otherwise.
+    public boolean checkValidRow() {
+        for (int x = 0; x < 81; x++) {
+            int index = x;
+            int numberAtIndex = sudokuBoard.getNumberAtIndex(x);
+            if (numberAtIndex == 0) {
+                // DO nothing
+            } else {
+                sudokuBoard.addNumber(x, 0);
+                boolean validRow = checkValidRow(index, numberAtIndex);
+                if (!validRow) {
+                    sudokuBoard.addNumber(x, numberAtIndex);
                     return false;
                 }
-                rowNumber++;
             }
+            sudokuBoard.addNumber(x, numberAtIndex);
         }
         return true;
     }

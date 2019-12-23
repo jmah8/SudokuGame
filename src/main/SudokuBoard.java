@@ -95,9 +95,9 @@ public abstract class SudokuBoard {
     // MODIFIES: this
     // EFFECT: puts number into position index if checkValidInsertion is true, else do nothing
     // Don't let user use this
-    public void setNumber(Integer index, Integer number) {
+    public void addNumber(Integer index, Integer number) {
         //if (checkValidInsertion(index, number)) {
-        board.setNumber(index, number);
+        board.addNumber(index, number);
         //}
     }
 
@@ -139,7 +139,7 @@ public abstract class SudokuBoard {
             int numberToPlace = random.nextInt(9) + 1;
             boolean validInsertion = sudokuChecker.checkValidInsertion(indexToPlace, numberToPlace);
             if (validInsertion) {
-                board.setNumber(indexToPlace, numberToPlace);
+                board.addNumber(indexToPlace, numberToPlace);
                 i++;
             }
         }

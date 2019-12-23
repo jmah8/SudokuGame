@@ -1,7 +1,5 @@
 package main;
 
-import java.util.Random;
-
 public class SolvableSudokuBoard extends SudokuBoard {
 
     private UnsolvedSudokuBoard sudokuBoard;
@@ -15,11 +13,11 @@ public class SolvableSudokuBoard extends SudokuBoard {
     // TODO: remove unneccessary methods
     public SolvableSudokuBoard(Difficulty difficulty) {
         super(difficulty);
-//        selectDifficulty(difficulty);
+
         setUpSudokuBoard();
 
         sudokuSolver.printBoard();
-        System.out.println(sudokuSolver.isComplete());
+        System.out.println(sudokuSolver.isFilled());
 
 
         removeRandomNumbers();

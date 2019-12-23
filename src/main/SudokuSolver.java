@@ -16,7 +16,7 @@ public class SudokuSolver {
     }
 
     // EFFECT: returns true if board is completely filled, false otherwise
-    public boolean isComplete() {
+    public boolean isFilled() {
         boolean complete = true;
         for (int i = 0; i < sb.getBoard().sizeOfBoard(); i++) {
             if (sb.getBoard().getNumberAtIndex(i) == 0) {
@@ -60,17 +60,17 @@ public class SudokuSolver {
     // EFFECT: fills board recursively and uses backtracking to find solution
     //         returning true if board is solvable, false otherwise
     public boolean fillSudokuBoard() {
-        if (isComplete()) {
+        if (isFilled()) {
             return true;
         }
         int index = findNextEmptyIndex();
         for (int num = 1; num <= 9; num++) {
             if (sb.checkValidInsertion(index, num)) {
-                sb.setNumber(index, num);
+                sb.addNumber(index, num);
                 if (fillSudokuBoard()) {
                     return true;
                 } else {
-                    sb.setNumber(index, 0);
+                    sb.addNumber(index, 0);
                 }
             }
         }

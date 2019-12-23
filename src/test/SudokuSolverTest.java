@@ -20,42 +20,42 @@ public class SudokuSolverTest {
 
     @Test
     public void checkChangeInSudokuBoardSaved() {
-        sudokuBoard.setNumber(0, 5);
+        sudokuBoard.addNumber(0, 5);
         assertEquals(1, sudokuSolver.findNextEmptyIndex());
     }
 
     @Test
     public void findNextEmptyIndexAtBeginning() {
-        sudokuBoard.setNumber(0, 5);
-        sudokuBoard.setNumber(1, 5);
-        sudokuBoard.setNumber(2, 5);
-        sudokuBoard.setNumber(3, 5);
+        sudokuBoard.addNumber(0, 5);
+        sudokuBoard.addNumber(1, 5);
+        sudokuBoard.addNumber(2, 5);
+        sudokuBoard.addNumber(3, 5);
         assertEquals(4, sudokuSolver.findNextEmptyIndex());
     }
 
     @Test
     public void findNextEmptyIndexInbetween() {
-        sudokuBoard.setNumber(0, 5);
-        sudokuBoard.setNumber(1, 5);
-        sudokuBoard.setNumber(2, 5);
-        sudokuBoard.setNumber(4, 5);
+        sudokuBoard.addNumber(0, 5);
+        sudokuBoard.addNumber(1, 5);
+        sudokuBoard.addNumber(2, 5);
+        sudokuBoard.addNumber(4, 5);
         assertEquals(3, sudokuSolver.findNextEmptyIndex());
     }
 
     @Test
     public void isCompleteCompleteTest() {
         for (int i = 0; i < 81; i++) {
-            sudokuBoard.setNumber(i, 1);
+            sudokuBoard.addNumber(i, 1);
         }
-        assertTrue(sudokuSolver.isComplete());
+        assertTrue(sudokuSolver.isFilled());
     }
 
     @Test
     public void isCompleteIncompleteTest() {
         for (int i = 0; i < 80; i++) {
-            sudokuBoard.setNumber(i, 1);
+            sudokuBoard.addNumber(i, 1);
         }
-        assertFalse(sudokuSolver.isComplete());
+        assertFalse(sudokuSolver.isFilled());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class SudokuSolverTest {
     @Test
     public void changeSudokuBoardTest() {
         UnsolvedSudokuBoard sudokuBoard1 = new UnsolvedSudokuBoard(Difficulty.EASY);
-        sudokuBoard1.setNumber(0, 5);
+        sudokuBoard1.addNumber(0, 5);
         sudokuSolver.changeSudokuBoard(sudokuBoard1);
         assertEquals(1, sudokuSolver.findNextEmptyIndex());
     }

@@ -32,8 +32,8 @@ public class UnsolvedSudokuBoardTest {
 
     @Test
     public void addNumberTest() {
-        sb.setNumber(60, 8);
-        sb.setNumber(20, 7);
+        sb.addNumber(60, 8);
+        sb.addNumber(20, 7);
         assertEquals(8, sb.getBoard().getNumberAtIndex(60));
         assertEquals(7, sb.getBoard().getNumberAtIndex(20));
         assertEquals(81, sb.getBoard().sizeOfBoard());
@@ -46,133 +46,133 @@ public class UnsolvedSudokuBoardTest {
 
     @Test
     public void checkValidIndexInvalid() {
-        sb.setNumber(50, 5);
+        sb.addNumber(50, 5);
         assertFalse(sb.checkValidIndex(50));
     }
 
     @Test
     public void checkValidRowTestValidSameRow() {
-        sb.setNumber(3, 5);
-        sb.setNumber(5, 8);
-        sb.setNumber(1, 2);
+        sb.addNumber(3, 5);
+        sb.addNumber(5, 8);
+        sb.addNumber(1, 2);
         assertTrue(sb.checkValidRow(4, 6));
     }
 
     @Test
     public void checkValidRowTestValidDifferentRow() {
-        sb.setNumber(3, 5);
-        sb.setNumber(5, 8);
-        sb.setNumber(1, 2);
+        sb.addNumber(3, 5);
+        sb.addNumber(5, 8);
+        sb.addNumber(1, 2);
         assertTrue(sb.checkValidRow(30, 5));
     }
 
     @Test
     public void checkValidRowTestInvalid() {
-        sb.setNumber(1, 2);
-        sb.setNumber(3, 5);
-        sb.setNumber(5, 8);
+        sb.addNumber(1, 2);
+        sb.addNumber(3, 5);
+        sb.addNumber(5, 8);
         assertFalse(sb.checkValidRow(8, 8));
     }
 
     @Test
     public void checkValidRowTestIfCheckingCorrectRow() {
-        sb.setNumber(48, 5);
-        sb.setNumber(53, 8);
-        sb.setNumber(46, 2);
+        sb.addNumber(48, 5);
+        sb.addNumber(53, 8);
+        sb.addNumber(46, 2);
         assertTrue(sb.checkValidRow(22, 8));
     }
 
     @Test
     public void checkValidColumnValidSameColumn() {
-        sb.setNumber(1, 8);
-        sb.setNumber(37, 9);
+        sb.addNumber(1, 8);
+        sb.addNumber(37, 9);
         assertTrue(sb.checkValidColumn(73, 2));
     }
 
     @Test
     public void checkValidColumnValidDifferentColumn() {
-        sb.setNumber(1, 8);
-        sb.setNumber(37, 9);
+        sb.addNumber(1, 8);
+        sb.addNumber(37, 9);
         assertTrue(sb.checkValidColumn(6, 8));
     }
 
     @Test
     public void checkValidColumnInvalid() {
-        sb.setNumber(24, 8);
-        sb.setNumber(42, 1);
+        sb.addNumber(24, 8);
+        sb.addNumber(42, 1);
         assertFalse(sb.checkValidColumn(69, 8));
     }
 
     @Test
     public void checkValidColumnTestIfCheckingCorrectColumn() {
-        sb.setNumber(17, 2);
-        sb.setNumber(35, 8);
+        sb.addNumber(17, 2);
+        sb.addNumber(35, 8);
         assertTrue(sb.checkValidColumn(21, 8));
         assertTrue(sb.checkValidColumn(77, 2));
     }
 
     @Test
     public void checkValidGridValid() {
-        sb.setNumber(32, 8);
-        sb.setNumber(44, 2);
+        sb.addNumber(32, 8);
+        sb.addNumber(44, 2);
         assertTrue(sb.checkValidGrid(42, 5));
     }
 
     @Test
     public void checkValidGridInvalid() {
-        sb.setNumber(57, 1);
-        sb.setNumber(76, 5);
+        sb.addNumber(57, 1);
+        sb.addNumber(76, 5);
         assertFalse(sb.checkValidGrid(66, 5));
     }
 
     @Test
     public void checkValidGridCheckForRightGrid() {
-        sb.setNumber(30, 2);
-        sb.setNumber(49, 5);
+        sb.addNumber(30, 2);
+        sb.addNumber(49, 5);
         assertTrue(sb.checkValidGrid(58, 5));
     }
 
     @Test
     public void checkValidInsertionValid() {
-        sb.setNumber(57, 8);
-        sb.setNumber(59, 2);
+        sb.addNumber(57, 8);
+        sb.addNumber(59, 2);
         assertTrue(sb.checkValidInsertion(3, 5));
     }
 
     @Test
     public void checkValidInsertionInvalidColumn() {
-        sb.setNumber(57, 8);
-        sb.setNumber(59, 2);
+        sb.addNumber(57, 8);
+        sb.addNumber(59, 2);
         assertFalse(sb.checkValidInsertion(3, 8));
     }
 
     @Test
     public void checkValidInsertionInvalidRow() {
-        sb.setNumber(57, 8);
-        sb.setNumber(3, 2);
+        sb.addNumber(57, 8);
+        sb.addNumber(3, 2);
         assertFalse(sb.checkValidInsertion(8, 2));
     }
 
     @Test
     public void checkValidInsertionInvalidIndex() {
-        sb.setNumber(57, 8);
-        sb.setNumber(59, 2);
+        sb.addNumber(57, 8);
+        sb.addNumber(59, 2);
         assertFalse(sb.checkValidInsertion(57, 1));
     }
 
     @Test
     public void checkValidInsertionInvalidGrid() {
-        sb.setNumber(57, 8);
-        sb.setNumber(59, 2);
+        sb.addNumber(57, 8);
+        sb.addNumber(59, 2);
         assertFalse(sb.checkValidInsertion(76, 8));
     }
 
     @Test
     public void checkValidInsertionInvalidAll() {
-        sb.setNumber(27, 5);
-        sb.setNumber(31, 2);
-        sb.setNumber(50, 1);
-        sb.setNumber(80, 2);
+        sb.addNumber(27, 5);
+        sb.addNumber(31, 2);
+        sb.addNumber(50, 1);
+        sb.addNumber(80, 2);
         assertFalse(sb.checkValidInsertion(35, 2));
         assertFalse(sb.checkValidInsertion(41, 1));
         assertFalse(sb.checkValidInsertion(70, 2));
@@ -181,7 +181,7 @@ public class UnsolvedSudokuBoardTest {
 
     @Test
     public void checkValidInsertionFarApartColumn() {
-        sb.setNumber(6, 9);
+        sb.addNumber(6, 9);
         assertFalse(sb.checkValidColumn(78, 9));
     }
 
@@ -199,7 +199,7 @@ public class UnsolvedSudokuBoardTest {
 
     @Test
     public void getNumberAtIndexTest() {
-        sb.setNumber(60, 2);
+        sb.addNumber(60, 2);
         assertEquals(2, sb.getNumberAtIndex(60));
         assertEquals(0, sb.getNumberAtIndex(0));
         assertEquals(sb.getBoard().getNumberAtIndex(60), sb.getNumberAtIndex(60));
@@ -207,8 +207,8 @@ public class UnsolvedSudokuBoardTest {
 
     @Test
     public void makeIndexEmptyTest() {
-        sb.setNumber(3, 8);
-        sb.setNumber(20, 5);
+        sb.addNumber(3, 8);
+        sb.addNumber(20, 5);
         sb.makeIndexEmpty(3);
         assertEquals(0, sb.getNumberAtIndex(3));
         assertEquals(5, sb.getNumberAtIndex(20));
@@ -282,7 +282,7 @@ public class UnsolvedSudokuBoardTest {
 
     @Test
     public void incrementNumberTestNotEmpty() {
-        sb.setNumber(5, 5);
+        sb.addNumber(5, 5);
         sb.incrementNumber(5);
         assertEquals(6, sb.getNumberAtIndex(5));
     }
