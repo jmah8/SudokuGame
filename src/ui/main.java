@@ -1,4 +1,4 @@
-package main;
+package ui;
 
 import java.util.Random;
 
@@ -12,6 +12,6 @@ public class main {
 //        System.out.println(ss.fillSudokuBoard());
 //        ss.printBoard();
 
-        SolvableSudokuBoard ssb = new SolvableSudokuBoard(Difficulty.HARD);
+//        SolvableSudokuBoard ssb = new SolvableSudokuBoard(Difficulty.HARD);
     }
 }

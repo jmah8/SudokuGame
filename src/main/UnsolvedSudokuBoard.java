@@ -5,6 +5,7 @@ import java.util.List;
 
 public class UnsolvedSudokuBoard extends SudokuBoard {
 
+    private final SudokuChecker sudokuChecker = new SudokuChecker(this);
     private List<Integer> board;
 //    private Random random = new Random();
 //    private Integer difficultyLevelValue = 0;
@@ -139,7 +140,7 @@ public class UnsolvedSudokuBoard extends SudokuBoard {
         for (int i = 0; i < numbersToPlace;) {
             int indexToPlace = random.nextInt(81);
             int numberToPlace = random.nextInt(9) + 1;
-            boolean validInsertion = checkValidInsertion(indexToPlace, numberToPlace);
+            boolean validInsertion = sudokuChecker.checkValidInsertion(indexToPlace, numberToPlace);
             if (validInsertion) {
                 board.set(indexToPlace, numberToPlace);
                 i++;
@@ -150,76 +151,47 @@ public class UnsolvedSudokuBoard extends SudokuBoard {
     // EFFECT: returns true if index is empty, and if column and row don't have same number,
     //         and if grid doesn't contain same number, else false otherwise
     public boolean checkValidInsertion(Integer index, Integer number) {
-        return (checkValidColumn(index, number) && checkValidRow(index, number)
-                && checkValidIndex(index) && checkValidGrid(index, number));
+        return sudokuChecker.checkValidInsertion(index, number);
     }
 
     // EFFECT: returns true if row doesn't have same number, false otherwise
     public boolean checkValidRow(Integer index, Integer number) {
-        int rowNumber = (index / 9) * 9;
-        for (int i = 0; i < 9; i++) {
-            if (number == board.get(rowNumber)) {
-                return false;
-            }
-            rowNumber++;
-        }
-        return true;
+        return sudokuChecker.checkValidRow(index, number);
+    }
+
+    // EFFECT: returns true if all rows doesn't have same number, false otherwise
+    public boolean checkValidRow() {
+        return sudokuChecker.checkValidRow();
     }
 
     // EFFECT: returns true if column doesn't have same number, false otherwise
     public boolean checkValidColumn(Integer index, Integer number) {
-        int columnNumber = index % 9;
-        for (int i = 0; i < 9; i++) {
-            if (number == board.get(columnNumber)) {
-                return false;
-            }
-            columnNumber = columnNumber + 9;
-        }
-        return true;
+        return sudokuChecker.checkValidColumn(index, number);
+    }
+
+    // EFFECT: returns true if all column doesn't have same number, false otherwise
+    public boolean checkValidColumn() {
+        return sudokuChecker.checkValidColumn();
     }
 
     // EFFECT: returns true if number is not in grid (3x3), return false
     public boolean checkValidGrid(Integer index, Integer number) {
         // Finds which part of the grid is it on (top = 0, middle = 1, bottom = 2)
-        int columnNumber = (index / 9) % 3;
         // Makes number always on the top of grid
-        int indexNumberTopPartOfGrid = index - (9 * columnNumber);
         // Makes number always on the top and to the left of grid
-        int indexNumberTopLeftGrid = (indexNumberTopPartOfGrid / 3) * 3;
-            for (int x = 0; x < 3; x++) {
-                for (int y = 0; y < 3; y++) {
-                    if (number == board.get(indexNumberTopLeftGrid)) {
-                        return false;
-                    }
-                    indexNumberTopLeftGrid++;
-                }
-                indexNumberTopLeftGrid += 6;
-            }
-        return true;
+        return sudokuChecker.checkValidGrid(index, number);
     }
 
     // EFFECT: returns true if index is 0 (signifies empty)
     public boolean checkValidIndex(Integer index) {
-        return 0 == board.get(index);
+        return sudokuChecker.checkValidIndex(index);
     }
 
     // EFFECT: returns true if board is complete and valid, false otherwise
     // TODO: fix bug where since i need the numbers to psuedo insert,
     //  it will always return false since the same number already exist
     public boolean checkIfValidAndCompleteBoard() {
-        boolean solved = true;
-        for (int i = 0; i < 81; i++) {
-            Integer numberAtIndex = board.get(i);
-            Integer indexNumber = i;
-            if (checkValidColumn(indexNumber, numberAtIndex) && checkValidRow(indexNumber,
-                    numberAtIndex) && checkValidGrid(indexNumber, numberAtIndex) && !checkValidIndex(indexNumber)) {
-                solved = true;
-            } else {
-                solved = false;
-                break;
-            }
-        }
-        return solved;
+        return sudokuChecker.checkIfValidAndCompleteBoard();
     }
 
     // MODIFIES : this
