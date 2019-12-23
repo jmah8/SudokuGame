@@ -135,10 +135,10 @@ public class SudokuChecker {
                 // Do nothing
             } else {
                 // TODO: check if this is really required
-                boolean validIndex = !(sudokuBoard.checkValidIndex(index));
-                if (!validIndex) {
-                    return false;
-                }
+//                boolean validIndex = !(sudokuBoard.checkValidIndex(index));
+//                if (!validIndex) {
+//                    return false;
+//                }
                 sudokuBoard.addNumber(index, 0);
                 boolean validRow = checkValidRow(index, numberAtIndex);
                 boolean validColumn = checkValidColumn(index, numberAtIndex);

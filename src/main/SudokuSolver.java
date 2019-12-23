@@ -62,7 +62,9 @@ public class SudokuSolver {
     // EFFECT: fills board recursively and uses backtracking to find solution
     //         returning true if board is solvable, false otherwise
     public boolean fillSudokuBoard() {
-        if (sudokuChecker.checkValidBoard()) {
+        // Don't need to check if valid board at this point, because we are using backtracking
+        // to find the correct solution using checkValidInsertion
+        if (isFilled()) {
             return true;
         }
         int index = findNextEmptyIndex();
