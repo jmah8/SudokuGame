@@ -64,7 +64,7 @@ public class SudokuSolver {
     public boolean fillSudokuBoard() {
         // Don't need to check if valid board at this point, because we are using backtracking
         // to find the correct solution using checkValidInsertion
-        if (isFilled()) {
+        if (sudokuChecker.checkValidBoard() && isFilled()) {
             return true;
         }
         int index = findNextEmptyIndex();
