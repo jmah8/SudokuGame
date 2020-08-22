@@ -41,23 +41,6 @@ public class SudokuSolver {
         return emptyIndex;
     }
 
-//    public boolean generateValidNumber(Integer index) {
-//        for (int i = 1; i < 10; i++) {
-//            boolean valid = sb.checkValidInsertion(index, i);
-//            if (valid) {
-//                sb.addNumber(index, i);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//    public boolean solveOneIndex() {
-//        int emptyIndex = findNextEmptyIndex();
-//        boolean validNumberPossible = generateValidNumber(emptyIndex);
-//        return validNumberPossible;
-//    }
-
     // MODIFIES: this
     // EFFECT: fills board recursively and uses backtracking to find solution
     //         returning true if board is solvable, false otherwise

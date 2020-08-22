@@ -1,4 +1,13 @@
 # SudokuGame
-Sudoku game project
+Sudoku game with sudoku solver.
 
-Sudoku game with sudoku solver, using one list.
+![Board](data/Board.png)
+
+![Valid](data/Valid.png)
+
+![Solved](data/Solved.png)
+
+# Features:
+- Valid Sudoku board checker
+- Different difficulty boards
+- Sudoku board solver

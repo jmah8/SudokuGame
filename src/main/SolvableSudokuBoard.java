@@ -4,13 +4,7 @@ public class SolvableSudokuBoard extends SudokuBoard {
 
     private UnsolvedSudokuBoard sudokuBoard;
     private SudokuSolver sudokuSolver;
-//    private Random random = new Random();
 
-//    public Integer NUMBERS_TO_REMOVE_EASY_DIFFICULTY = random.nextInt(5) + 34;
-//    public Integer NUMBERS_TO_REMOVE_MEDIUM_DIFFICULTY = random.nextInt(5) + 52;
-//    public Integer NUMBERS_TO_REMOVE_HARD_DIFFICULTY = random.nextInt(5) + 70;
-
-    // TODO: remove unneccessary methods
     public SolvableSudokuBoard(Difficulty difficulty) {
         super(difficulty);
 
@@ -36,15 +30,12 @@ public class SolvableSudokuBoard extends SudokuBoard {
         switch (difficulty) {
             case EASY:
                 difficultyLevelValue = NUMBERS_TO_REMOVE_EASY_DIFFICULTY;
-//                this.difficulty = Difficulty.EASY;
                 break;
             case MEDIUM:
                 difficultyLevelValue = NUMBERS_TO_REMOVE_MEDIUM_DIFFICULTY;
-//                this.difficulty = Difficulty.MEDIUM;
                 break;
             case HARD:
                 difficultyLevelValue = NUMBERS_TO_REMOVE_HARD_DIFFICULTY;
-//                this.difficulty = Difficulty.HARD;
                 break;
         }
         return difficultyLevelValue;

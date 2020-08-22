@@ -31,9 +31,7 @@ public class Board {
     // EFFECT: puts number into position index if checkValidInsertion is true, else do nothing
     // Don't let user use this
     public void addNumber(Integer index, Integer number) {
-        //if (checkValidInsertion(index, number)) {
         board.set(index, number);
-        //}
     }
 
     // MODIFIES : this
@@ -72,19 +70,4 @@ public class Board {
         }
         System.out.println("");
     }
-
-//    // MODIFIES: this
-//    // EFFECT: randomly fills board with random amount of numbers
-//    public void fillBoardRandomly() {
-//        int numbersToPlace = difficultyLevelValue;
-//        for (int i = 0; i < numbersToPlace;) {
-//            int indexToPlace = random.nextInt(81);
-//            int numberToPlace = random.nextInt(9) + 1;
-//            boolean validInsertion = sudokuChecker.checkValidInsertion(indexToPlace, numberToPlace);
-//            if (validInsertion) {
-//                board.setNumber(indexToPlace, numberToPlace);
-//                i++;
-//            }
-//        }
-//    }
 }

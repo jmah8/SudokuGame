@@ -23,8 +23,6 @@ public abstract class SudokuBoard {
         selectDifficulty(difficulty);
     }
 
-    // TODO: could also use method dispatching to make it so it will
-    //  use actual type's selectDifficulty method and make it so I dont need abstract method
     public void selectDifficulty(Difficulty difficulty) {
         switch (difficulty) {
             case EASY:
@@ -74,13 +72,6 @@ public abstract class SudokuBoard {
     public boolean checkValidBoard() {
         return sudokuChecker.checkValidBoard();
     }
-
-//    // EFFECT: returns true if board is complete and valid, false otherwise
-//    // TODO: fix bug where since i need the numbers to psuedo insert,
-//    //  it will always return false since the same number already exist
-//    public boolean checkIfValidAndCompleteBoard() {
-//        return sudokuChecker.checkIfValidAndCompleteBoard();
-//    }
 
     public Board getBoard() {
         return board;
